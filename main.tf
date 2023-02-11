@@ -2,6 +2,11 @@ provider "aws" {
   region = var.region
 }
 
+provider "proxmox" {
+  pm_api_url = "https://pve01.durpro.com/api2/json"
+  # pm_debug = true
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -24,5 +29,25 @@ resource "aws_instance" "ubuntu" {
 
   tags = {
     Name = var.instance_name
+  }
+}
+
+resource "proxmox_lxc" "basic" {
+  target_node  = "pve"
+  hostname     = "lxc-basic"
+  ostemplate   = "local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
+  password     = "BasicLXCContainer"
+  unprivileged = true
+
+  // Terraform will crash without rootfs defined
+  rootfs {
+    storage = "hdd4t0"
+    size    = "8G"
+  }
+
+  network {
+    name   = "eth0"
+    bridge = "vmbr0"
+    ip     = "dhcp"
   }
 }
