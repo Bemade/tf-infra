@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 provider "proxmox" {
-  pm_api_url = "https://pve01.durpro.com/api2/json"
+  pm_api_url = "https://pve01.durpro.com:8006/api2/json"
   # pm_debug = true
 }
 
