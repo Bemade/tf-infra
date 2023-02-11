@@ -6,6 +6,7 @@ terraform {
     }
     proxmox = {
       source  = "telmate/proxmox"
+      version = ">= 2.9.5"
     }
     random = {
       source  = "hashicorp/random"

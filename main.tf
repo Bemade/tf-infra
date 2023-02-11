@@ -3,8 +3,11 @@ provider "aws" {
 }
 
 provider "proxmox" {
+  pm_tls_insecure = true
   pm_api_url = "https://pve01.durpro.com:8006/api2/json"
-  # pm_debug = true
+  pm_password = "password"
+  pm_user = "root@pam"
+  pm_otp = ""
 }
 
 data "aws_ami" "ubuntu" {
@@ -33,7 +36,7 @@ resource "aws_instance" "ubuntu" {
 }
 
 resource "proxmox_lxc" "basic" {
-  target_node  = "pve"
+  target_node  = "pve01"
   hostname     = "lxc-basic"
   ostemplate   = "local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
   password     = "BasicLXCContainer"
