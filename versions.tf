@@ -4,7 +4,9 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.28.0"
     }
-
+    proxmox = {
+      source  = "telmate/proxmox"
+    }
     random = {
       source  = "hashicorp/random"
       version = "3.0.0"
