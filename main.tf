@@ -4,29 +4,29 @@ provider "proxmox" {
   pm_otp = ""
 }
 
-resource "proxmox_lxc" "basic" {
-  target_node  = "pve01"
-  hostname     = "lxc-basic"
-  ostemplate   = "local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
-  password     = "BasicLXCContainer"
-  unprivileged = true
+# resource "proxmox_lxc" "basic" {
+#   target_node  = "pve01"
+#   hostname     = "lxc-basic"
+#   ostemplate   = "local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
+#   password     = "BasicLXCContainer"
+#   unprivileged = true
 
-  // Terraform will crash without rootfs defined
-  rootfs {
-    storage = "hdd4to"
-    size    = "8G"
-  }
+#   // Terraform will crash without rootfs defined
+#   rootfs {
+#     storage = "hdd4to"
+#     size    = "8G"
+#   }
 
-  network {
-    name   = "eth0"
-    bridge = "vmbr0"
-    ip     = "dhcp"
-  }
-}
+#   network {
+#     name   = "eth0"
+#     bridge = "vmbr0"
+#     ip     = "dhcp"
+#   }
+# }
 
-resource "proxmox_vm_qemu" "cloudinit-test" {
-    name = "terraform-test-vm"
-    desc = "A test for using terraform and cloudinit"
+resource "proxmox_vm_qemu" "pbx01" {
+    name = "pbx01-bemade"
+    desc = "PBX Wazo create from Terraform"
 
     # Node name has to be the same name as within the cluster
     # this might not include the FQDN
@@ -51,13 +51,15 @@ resource "proxmox_vm_qemu" "cloudinit-test" {
 
     # Setup the disk
     disk {
-        size = "8G"
+        size = "100G"
         type = "virtio"
         storage = "local"
     }
 
     # Setup the network interface and assign a vlan tag: 256
     network {
+        firewall = 0
+        macaddr = "02:00:00:4c:de:92"
         model = "virtio"
         bridge = "vmbr0"
         tag = 256
@@ -65,7 +67,7 @@ resource "proxmox_vm_qemu" "cloudinit-test" {
 
     # Setup the ip address using cloud-init.
     # Keep in mind to use the CIDR notation for the ip.
-    ipconfig0 = "ip=192.168.10.20/24,gw=192.168.10.1"
+    ipconfig0 = "ip=66.70.204.50/32,gw=54.39.16.254
     sshkeys = <<EOF
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEsNLo8NDKurxAIO4gbLS7Xqttc3Chjr88SY6uYAhiAT benoit@vezina.biz
     EOF
