@@ -60,6 +60,7 @@ resource "proxmox_vm_qemu" "pbx01" {
   
     # Setup the disk
     disk {
+        ssd = 1
         size = "100G"
         type = "virtio"
         storage = "local"
