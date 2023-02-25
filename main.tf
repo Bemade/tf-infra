@@ -67,7 +67,7 @@ resource "proxmox_vm_qemu" "pbx01" {
 
     # Setup the ip address using cloud-init.
     # Keep in mind to use the CIDR notation for the ip.
-    ipconfig0 = "ip=66.70.204.50/32,gw=54.39.16.254
+    ipconfig0 = "ip=66.70.204.50/32,gw=54.39.16.254"
     sshkeys = <<EOF
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEsNLo8NDKurxAIO4gbLS7Xqttc3Chjr88SY6uYAhiAT benoit@vezina.biz
     EOF
