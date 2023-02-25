@@ -26,7 +26,7 @@ provider "proxmox" {
 
 resource "proxmox_vm_qemu" "pbx01" {
     vmid = 1001
-    name = "pbx01-bemade"
+    name = "pbx01.bemade.org"
     desc = "PBX01 - Wazo server create from Terraform"
     onboot = true
     oncreate = true
