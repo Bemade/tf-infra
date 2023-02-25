@@ -37,7 +37,7 @@ resource "proxmox_vm_qemu" "pbx01" {
     target_node = "pve01"
 
     # The destination resource pool for the new VM
-    pool = "pool0"
+    # pool = "pool0"
 
     # The template name to clone this vm from
     clone = "debian10ci"
