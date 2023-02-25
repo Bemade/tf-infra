@@ -45,7 +45,7 @@ resource "proxmox_vm_qemu" "pbx01" {
 
     # Activate QEMU agent for this VM
     agent = 1
-
+  
     os_type = "cloud-init"
     cores = 2
     sockets = 1
@@ -57,7 +57,6 @@ resource "proxmox_vm_qemu" "pbx01" {
     # Cloudinit
     ciuser = "bvezina"
     
-  
     # Setup the disk
     disk {
         ssd = 1
