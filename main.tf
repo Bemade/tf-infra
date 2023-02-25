@@ -41,7 +41,7 @@ resource "proxmox_vm_qemu" "pbx01" {
 
     # The template name to clone this vm from
     clone = "debian10ci"
-    fullclone = true
+    full_clone = true
 
     # Activate QEMU agent for this VM
     agent = 1
