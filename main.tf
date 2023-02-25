@@ -51,7 +51,7 @@ resource "proxmox_vm_qemu" "cloudinit-test" {
 
     # Setup the disk
     disk {
-        size = 8
+        size = 8G
         type = "virtio"
         storage = "local"
     }
