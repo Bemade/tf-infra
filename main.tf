@@ -25,8 +25,12 @@ provider "proxmox" {
 # }
 
 resource "proxmox_vm_qemu" "pbx01" {
+    vmid = 1001
     name = "pbx01-bemade"
-    desc = "PBX Wazo create from Terraform"
+    desc = "PBX01 - Wazo server create from Terraform"
+    onboot = true
+    oncreate = true
+    qemu_os = "l26"
 
     # Node name has to be the same name as within the cluster
     # this might not include the FQDN
@@ -37,6 +41,7 @@ resource "proxmox_vm_qemu" "pbx01" {
 
     # The template name to clone this vm from
     clone = "debian10ci"
+    fullclone = true
 
     # Activate QEMU agent for this VM
     agent = 1
@@ -49,16 +54,20 @@ resource "proxmox_vm_qemu" "pbx01" {
     memory = 2048
     scsihw = "lsi"
 
+    # Cloudinit
+    ciuser = "bvezina"
+    
+  
     # Setup the disk
     disk {
         size = "100G"
         type = "virtio"
         storage = "local"
     }
-
+  
     # Setup the network interface and assign a vlan tag: 256
     network {
-        firewall = 0
+        firewall = false
         macaddr = "02:00:00:4c:de:92"
         model = "virtio"
         bridge = "vmbr0"
